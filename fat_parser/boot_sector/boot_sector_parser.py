@@ -3,9 +3,9 @@ from fat_parser.io_manager import IOManager
 
 
 class BootSectorParser:
-    def __init__(self, io_manager: IOManager):
+    def __init__(self, io_manager: IOManager, bs_params: BSParams):
         self.io_manager = io_manager
-        self.bs_params = BSParams()
+        self.bs_params = bs_params
 
     def parse_common_fields(self):
         self.bs_params.jump_boot = self.io_manager.read_int(8)
