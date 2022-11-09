@@ -1,1 +1,1 @@
-from fat_type import FatType
+from .fat_type import FatType

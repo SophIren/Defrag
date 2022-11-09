@@ -1,1 +1,2 @@
-from boot_sector_parser import BootSectorParser, BSParams
+from .boot_sector_info import BSInfo
+from .boot_sector_parser import BSParser

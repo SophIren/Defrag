@@ -1,6 +1,6 @@
-from fat_parser import BootSectorParser
-from fat_parser import IOManager
-from raw_image_info import RawImageInfo
+from fat_parser.boot_sector import BSParser, BSInfo
+from fat_parser.io_manager import IOManager
+from fat_parser.raw import RawImageInfo
 
 from entities import FatType
 
@@ -8,8 +8,10 @@ from entities import FatType
 class RawFatParser:
     def __init__(self, io_manager: IOManager):
         self.io_manager = io_manager
-        self.raw_info = RawImageInfo(io_manager)
-        self.bs_parser = BootSectorParser(io_manager, self.raw_info.bs_params)
+
+        bs_info = BSInfo()
+        self.raw_info = RawImageInfo(bs_info)
+        self.bs_parser = BSParser(io_manager, bs_info)
 
     def parse(self):
         self.bs_parser.parse_common_fields()
