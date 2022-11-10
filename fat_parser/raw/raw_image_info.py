@@ -47,8 +47,7 @@ class RawImageInfo:
     def root_dir_sectors_count(self) -> int:
         if self.bs_params.root_entries_count == 0:
             return 0
-        return (
-                           32 * self.bs_params.root_entries_count + self.bs_params.bytes_per_sector - 1) // self.bs_params.bytes_per_sector
+        return (32 * self.bs_params.root_entries_count + self.bs_params.bytes_per_sector - 1) // self.bs_params.bytes_per_sector
 
     @property
     def data_start_sector(self) -> int:
