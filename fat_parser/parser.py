@@ -29,10 +29,12 @@ class FatParser:
     def parse(self):
         if self.image_info.fat_type == FatType.FAT32:
             root_dir_start = self.bs_info.root_cluster
+            root_chain = self.cluster_parser.parse(root_dir_start)
         else:
-            root_dir_start = self.image_info.root_dir_start_sector // self.image_info.bs_info.sectors_per_cluster
+            root_chain = self.cluster_parser.parse_single_cluster(
+                self.image_info.root_dir_start_sector * self.image_info.bs_info.bytes_per_sector,
+                self.image_info.bs_info.root_entries_count)
 
-        root_chain = self.cluster_parser.parse(root_dir_start)
         stack = [root_chain]
         while stack:
             current_chain = stack.pop()

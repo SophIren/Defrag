@@ -17,7 +17,7 @@ class ClusterParser:
         clusters = []
         while not self.fat_table_parser.fat_entry_num_is_ending(fat_entry_num):
             cluster_pos = self._fat_entry_num_to_data_pos(fat_entry_num)
-            cluster = self._parse_single_cluster(cluster_pos, self.image_info.entries_per_cluster)
+            cluster = self.parse_single_cluster(cluster_pos, self.image_info.entries_per_cluster)
             if clusters:
                 clusters[-1].connect_to(cluster)
             clusters.append(cluster)
@@ -29,7 +29,7 @@ class ClusterParser:
         sector_num = self.image_info.data_start_sector + (fat_entry_num - 2) * self.image_info.bs_info.sectors_per_cluster
         return sector_num * self.image_info.bs_info.bytes_per_sector
 
-    def _parse_single_cluster(self, cluster_start_pos: int, entries_count: int) -> ClusterInfo:
+    def parse_single_cluster(self, cluster_start_pos: int, entries_count: int) -> ClusterInfo:
         fat_entry_pos = cluster_start_pos
         entries = []
         for _ in range(entries_count):
