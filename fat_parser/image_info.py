@@ -43,14 +43,10 @@ class ImageInfo:
 
     @property
     def root_dir_start_sector(self) -> int:
-        if self.bs_info.root_entries_count == 0:
-            return 0
         return self.start_sector + self.total_fat_size
 
     @property
     def root_dir_sectors_count(self) -> int:
-        if self.bs_info.root_entries_count == 0:
-            return 0
         return (EntryParser.ENTRY_SIZE * self.bs_info.root_entries_count + self.bs_info.bytes_per_sector - 1) // self.bs_info.bytes_per_sector
 
     @property
@@ -59,6 +55,8 @@ class ImageInfo:
 
     @property
     def data_sectors_count(self) -> int:
+        if self.bs_info.root_entries_count == 0:
+            return self.total_sectors_count
         return self.total_sectors_count - self.data_start_sector
 
     @property

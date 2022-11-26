@@ -1,4 +1,5 @@
 from entities import EntryType
+from fat_parser.attribute.attribute import Attribute
 from fat_parser.entry.entry_info import EntryInfo
 from fat_parser.io_manager import IOManager
 
@@ -17,8 +18,10 @@ class EntryParser:
         entry_info.type = self.get_type(type_mark)
         self.io_manager.rollback(1)
 
-        entry_info.name = self.io_manager.read_int(11)
-        entry_info.attr = self.io_manager.read_int(1)
+        entry_info.name = self.io_manager.read(11)
+        attr = self.io_manager.read_int(1)
+        entry_info.attr = Attribute(attr & 0x20 == 32, attr & 0x10 == 16, attr & 0x08 == 8,
+                                    attr & 0x04 == 4, attr & 0x02 == 2, attr & 0x01 == 1)
         entry_info.nt_res = self.io_manager.read_int(1)
         entry_info.crt_time_tenth = self.io_manager.read_int(1)
         entry_info.crt_time = self.io_manager.read_int(2)

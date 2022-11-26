@@ -1,13 +1,14 @@
 from typing import Optional
 
 from entities import EntryType
+from fat_parser.attribute.attribute import Attribute
 
 
 class EntryInfo:
     def __init__(self):
         self.type: Optional[EntryType] = None
-        self.name: Optional[int] = None
-        self.attr: Optional[int] = None
+        self.name: Optional[str] = None
+        self.attr: Optional[Attribute] = None
         self.nt_res: Optional[int] = None
         self.crt_time_tenth: Optional[int] = None
         self.crt_time: Optional[int] = None

@@ -9,7 +9,7 @@ class IOManager:
 
     @property
     def position(self) -> int:
-        return self.file.tell()
+        return self._position
 
     @position.setter
     def position(self, value: int) -> None:
@@ -26,6 +26,14 @@ class IOManager:
         """
         self.file.close()
 
+    def read(self, count: int) -> bytes:
+        if count <= 0:
+            raise ValueError('Count must be a natural number')
+
+        result = self.file.read(count)
+        self.position += count
+        return result
+
     def read_int(self, count: int, endian='little') -> int:
         """
         Считывает следующие count байт в файле
@@ -33,12 +41,7 @@ class IOManager:
         :param count: Число байт, которые необходимо считать
         :return: bytes, считанные из файла
         """
-        if count <= 0:
-            raise ValueError('Count must be a natural number')
-
-        result = self.file.read(count)
-        self.position += count
-
+        result = self.read(count)
         return int.from_bytes(result, endian)
 
     def rollback(self, count: int) -> None:
