@@ -21,7 +21,11 @@ class EntryInfo:
         self.file_size: Optional[int] = None
 
     @property
-    def cluster_pos(self) -> int:
+    def fat_entry_start(self) -> int:
         if self.fat_cluster_hi is None:
             return self.fat_cluster_lo
         return self.fat_cluster_lo + (self.fat_cluster_hi << 16)
+
+    @property
+    def is_auxiliary(self) -> bool:
+        return self.name.rstrip() == b'.' or self.name.rstrip() == b'..'

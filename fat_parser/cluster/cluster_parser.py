@@ -1,12 +1,9 @@
-from typing import List
-
 from entities import EntryType
-from fat_parser.boot_sector import BSInfo
 from fat_parser.cluster.cluster_info import ClusterInfo
 from fat_parser.entry.entry_parser import EntryParser
 from fat_parser.fat_table.fat_table_parser import FatTableParser
-from fat_parser.io_manager import IOManager
 from fat_parser.image_info import ImageInfo
+from fat_parser.io_manager import IOManager
 
 
 class ClusterParser:

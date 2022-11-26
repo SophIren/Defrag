@@ -37,4 +37,8 @@ class FatParser:
         while stack:
             current_chain = stack.pop()
             for cluster in current_chain:
+                for entry in cluster.entries:
+                    if entry.attr.directory and not entry.is_auxiliary:
+                        new_chain = self.cluster_parser.parse(entry.fat_entry_start)
+                        stack.append(new_chain)
                 print(list(map(lambda entry: entry.name, cluster.entries)))
