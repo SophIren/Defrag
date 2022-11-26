@@ -16,5 +16,5 @@ class ClusterInfo:
         current = self
         while current.connected_to is not None:
             yield current
-            current = self.connected_to
+            current = current.connected_to
         yield current
