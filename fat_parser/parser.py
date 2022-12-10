@@ -42,9 +42,9 @@ class FatParser:
             for cluster in current_chain:
                 for entry in cluster.entries:
                     if entry.attr.directory and not entry.is_auxiliary:
-                        new_chain = self.cluster_parser.parse(entry.fat_entry_start)
+                        new_chain = self.cluster_parser.parse(entry.fat_entry_num_start)
                         stack.append(new_chain)
                         res.append(new_chain)
                     if entry.attr.archive:
-                        res.append(self.cluster_parser.parse(entry.fat_entry_start, file_content_size=entry.file_size))
+                        res.append(self.cluster_parser.parse(entry.fat_entry_num_start, file_content_size=entry.file_size))
         print(res)

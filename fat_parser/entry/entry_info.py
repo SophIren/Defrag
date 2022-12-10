@@ -23,7 +23,7 @@ class EntryInfo:
         self.is_file_content: Optional[bool] = None
 
     @property
-    def fat_entry_start(self) -> int:
+    def fat_entry_num_start(self) -> int:
         if self.fat_cluster_hi is None:
             return self.fat_cluster_lo
         return self.fat_cluster_lo + (self.fat_cluster_hi << 16)
