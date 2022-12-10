@@ -21,6 +21,7 @@ class ClusterParser:
             cluster_pos = self._fat_entry_num_to_data_pos(fat_entry_num)
             cluster = self.parse_single_cluster(cluster_pos, self.image_info.entries_per_cluster,
                                                 file_content_size=file_content_size)
+            cluster.fat_entry_num = fat_entry_num
             if clusters:
                 clusters[-1].connect_to(cluster)
             clusters.append(cluster)

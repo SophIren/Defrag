@@ -8,6 +8,7 @@ class ClusterInfo:
     def __init__(self, entries: List[EntryInfo], connected_to: Optional[ClusterInfo] = None):
         self.entries = entries
         self.data_start_pos: Optional[int] = None
+        self.fat_entry_num: Optional[int] = None
         self.connected_to: Optional[ClusterInfo] = connected_to
 
     def connect_to(self, cluster: ClusterInfo):
