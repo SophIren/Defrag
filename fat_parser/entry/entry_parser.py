@@ -10,9 +10,22 @@ class EntryParser:
     def __init__(self, io_manager: IOManager):
         self.io_manager = io_manager
 
-    def parse(self, entry_start_pos: int) -> EntryInfo:
+    def parse_file_content(self, entry_start_pos: int, file_size: int) -> EntryInfo:
         entry_info = EntryInfo()
         self.io_manager.seek(entry_start_pos)
+
+        entry_info.is_file_content = True
+        entry_info.start_pos = entry_start_pos
+        entry_info.name = self.io_manager.read(min(file_size, self.ENTRY_SIZE))
+
+        return entry_info
+
+    def parse_dir_content(self, entry_start_pos: int) -> EntryInfo:
+        entry_info = EntryInfo()
+        self.io_manager.seek(entry_start_pos)
+
+        entry_info.start_pos = entry_start_pos
+        entry_info.is_file_content = False
 
         type_mark = self.io_manager.read_int(1)
         entry_info.type = self.get_type(type_mark)

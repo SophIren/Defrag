@@ -36,6 +36,7 @@ class FatParser:
                 self.image_info.bs_info.root_entries_count)
 
         stack = [root_chain]
+        res = []
         while stack:
             current_chain = stack.pop()
             for cluster in current_chain:
@@ -43,4 +44,7 @@ class FatParser:
                     if entry.attr.directory and not entry.is_auxiliary:
                         new_chain = self.cluster_parser.parse(entry.fat_entry_start)
                         stack.append(new_chain)
-                print(list(map(lambda entry: entry.name, cluster.entries)))
+                        res.append(new_chain)
+                    if entry.attr.archive:
+                        res.append(self.cluster_parser.parse(entry.fat_entry_start, file_content_size=entry.file_size))
+        print(res)

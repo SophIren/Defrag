@@ -19,6 +19,8 @@ class EntryInfo:
         self.wrt_date: Optional[int] = None
         self.fat_cluster_lo: Optional[int] = None
         self.file_size: Optional[int] = None
+        self.start_pos: Optional[int] = None
+        self.is_file_content: Optional[bool] = None
 
     @property
     def fat_entry_start(self) -> int:

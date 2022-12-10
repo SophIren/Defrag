@@ -7,6 +7,7 @@ from fat_parser.entry.entry_info import EntryInfo
 class ClusterInfo:
     def __init__(self, entries: List[EntryInfo], connected_to: Optional[ClusterInfo] = None):
         self.entries = entries
+        self.data_start_pos: Optional[int] = None
         self.connected_to: Optional[ClusterInfo] = connected_to
 
     def connect_to(self, cluster: ClusterInfo):
@@ -18,3 +19,9 @@ class ClusterInfo:
             yield current
             current = current.connected_to
         yield current
+
+    @property
+    def is_file_content(self) -> bool:
+        if len(self.entries) > 0:
+            return self.entries[0].is_file_content
+        return False
