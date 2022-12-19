@@ -64,6 +64,10 @@ class ImageInfo:
         return self.data_sectors_count // self.bs_info.sectors_per_cluster
 
     @property
+    def cluster_size(self) -> int:
+        return self.bs_info.bytes_per_sector * self.bs_info.sectors_per_cluster
+
+    @property
     def fat_type(self) -> FatType:
         if self.clusters_count <= 4085:
             return FatType.FAT12

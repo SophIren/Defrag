@@ -23,6 +23,8 @@ class EntryParser:
     def parse_dir_content(self, entry_start_pos: int) -> EntryInfo:
         entry_info = EntryInfo()
         self.io_manager.seek(entry_start_pos)
+        entry_info._bytes = self.io_manager.read(32)
+        self.io_manager.rollback(32)
 
         entry_info.start_pos = entry_start_pos
         entry_info.is_file_content = False

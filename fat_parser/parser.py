@@ -48,3 +48,4 @@ class FatParser:
                     if entry.attr.archive:
                         res.append(self.cluster_parser.parse(entry.fat_entry_num_start, file_content_size=entry.file_size))
         print(res)
+        return res

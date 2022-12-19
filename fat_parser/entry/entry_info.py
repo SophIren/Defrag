@@ -21,6 +21,7 @@ class EntryInfo:
         self.file_size: Optional[int] = None
         self.start_pos: Optional[int] = None
         self.is_file_content: Optional[bool] = None
+        self._bytes: Optional[bytes] = None
 
     @property
     def fat_entry_num_start(self) -> int:
