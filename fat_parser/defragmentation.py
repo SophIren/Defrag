@@ -4,8 +4,7 @@ from fat_parser.io_manager import IOManager
 from fat_parser.parser import FatParser
 from math import inf
 from typing import List
-from cluster.cluster_info import ClusterInfo
-from random import choice
+from fat_parser.cluster.cluster_info import ClusterInfo
 
 
 class Defragmenter:
